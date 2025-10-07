@@ -14,18 +14,18 @@ Identify and present Key Performance Indicators (KPIs) for healthcare finance an
 
 Perform a detailed analysis of revenue, expenses, and provider efficiency.
 
-Build an interactive, multi-page dashboard to summarize insights.
+Build an interactive dashboard to summarize insights.
 
 Communicate findings with clarity using effective data visualization.
 
 📑 Dashboard Structure
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-The dashboard consists of 3–4 interactive pages:
+The dashboard consists of interactive Dashboard consisting the below:
 
 Financial Overview
 
-Summarizes revenue, expenses, profit, and other key financial metrics.
+Summarizes Billign Amount, Medication cost, Treatment Cost, Insurance cost, Room charges and out-of-pocket that the patients had to pay from their pocket despite the insurance coverage. 
 
 Provides a snapshot of the healthcare center’s financial health.
 
@@ -68,8 +68,6 @@ Actionable Insights – identifies areas for improvement and growth
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Open the Power BI file: Healthcare Provider Dashboard.pbix
-
-Navigate across different report pages using the tabs.
 
 Use filters and slicers to interact with the data and uncover deeper insights.
 
