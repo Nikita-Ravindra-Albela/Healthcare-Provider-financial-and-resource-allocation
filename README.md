@@ -3,7 +3,7 @@ Healthcare Provider Dashboard -Capstone
 📊 Project Overview
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-This project focuses on analyzing the financial performance of a healthcare center and providing insights on healthcare providers. Using Power BI, an interactive dashboard was built to help stakeholders easily monitor KPIs, trends, and provider efficiency.
+This project focuses on analyzing the financial performance of a healthcare center and providing insights on healthcare providers and resource allocation. Using Power BI, an interactive dashboard was built to help stakeholders easily monitor KPIs, trends, and provider efficiency.
 
 The goal of this project was to translate raw healthcare data into actionable insights that can guide strategic decisions, improve provider performance, and enhance overall financial health.
 
