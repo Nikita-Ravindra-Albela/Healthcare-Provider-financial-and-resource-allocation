@@ -1,133 +1,137 @@
-Healthcare Provider Dashboard -Capstone
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-📊 Project Overview
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Healthcare Provider Financial & Resource Allocation Dashboard
+-----------
+## Overview
+-----------
+The Healthcare Provider Dashboard is an end-to-end Power BI analytics project designed to evaluate financial performance, insurance dependency, departmental efficiency, and patient care trends.
+It combines multiple datasets to uncover actionable insights that help healthcare administrators improve cost management, service delivery, and overall operational performance. 
 
-This project focuses on analyzing the financial performance of a healthcare center and providing insights on healthcare providers and resource allocation. Using Power BI, an interactive dashboard was built to help stakeholders easily monitor KPIs, trends, and provider efficiency.
+## I have conducted additional analysis apart from those mentioned in the problem statement.
 
-The goal of this project was to translate raw healthcare data into actionable insights that can guide strategic decisions, improve provider performance, and enhance overall financial health.
+This project highlights both technical skill (data modeling, DAX, Power Query) and business storytelling those essential for roles in data analytics and business intelligence consulting.
+-----------
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Requirements: 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-1. KPIs and Trends: Identify and present the key 
-performance indicators (KPIs) and significant trends in the 
-dataset. 
-2. Detailed Analysis: Ensure the analysis is thorough and 
-detailed, covering all relevant aspects of the healthcare 
-center's finance and the performance of healthcare 
-providers. 
-3. Dashboard Creation: Create a comprehensive 
-dashboard consisting of 3 to 4 pages that includes: - Financial Overview: Summarize the financial health of 
-the healthcare center. - Provider Insights: Analyze the performance and 
-efficiency of healthcare providers. 
-- Trend Analysis: Highlight any important trends over 
-time. - Additional Insights: Any other relevant insights that can 
-be derived from the data.
+## Objectives
+-----------
+Analyze total revenue, costs, and billing efficiency across procedures and departments.
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Expectations: 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-- Visualization: Use appropriate visualizations to effectively 
-communicate the findings. - Interactivity: Ensure the dashboard is interactive and 
-user-friendly. - Clarity: Present the data in a clear and concise manner, 
-making it easy for stakeholders to understand the insights. 
+Compare insurance coverage vs. cash payments across payers.
 
-📑 Dashboard Structure
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Evaluate operational metrics such as length of stay and cost by diagnosis.
 
-The dashboard consists of interactive Dashboard consisting the below:
+Identify demographic and regional trends driving healthcare utilization.
 
-Financial Overview
+Support executive decisions on budgeting, staffing, and cost control.
 
-- Summarizes Total Revenue, Medication cost, Treatment Cost, Insurance cost, Room charges and out-of-pocket that the patients had to pay from their pocket despite the insurance coverage. 
-- Provides a snapshot of the healthcare center’s financial health.
-- Maps visualize total revenue by states. Blue indicating high revenue and red indicating low revenue states. Added a sclicer to visualize the revenue by city and state. 
-- Total revenue by procedure is visualized with a Clsutered column chart indicating the highest revenue generated from X-rays followed by CT-scan and MRI Scan.
-- Total revenue by Diagnosis and service is visualized by 100% Stacked Bar chart, indicating highest revenue generated from Outpatients for Hypertension and Appendicitis. (53% & 56%) Stable revenue is generated from emergency and Inpatients within scale of (20% to 29%).
-- Total revenue generated by department is visualized with the help of Clustered Bar chart with Cardiology generating the highest revenue followed by Orthopedics and General surgery.
-- Added a date slicer to visualize the dashboard for particular time periods.
+## Datasets Used
+-----------
+Dataset files used -
+Patients	Contains patient demographics and identifiers.
+Visits	Admission, discharge, and treatment details.
+Procedures	Medical and diagnostic services performed.
+Departments	Organizational units within the hospital.
+Diagnoses	Medical condition categories assigned to patients.
+Insurance	Coverage details and payer information.
+Cities / States	Geographic mapping for regional analysis.
+Providers	Doctors and healthcare professionals involved.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Provider Insights
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Data Model
+-----------
+Fact Table: Visits
 
-Evaluates healthcare provider performance based on efficiency, patient load, and financial contribution. The Total revenue is £3M with a average revenue per patient to £674.
+Dimension Tables: Patients, Departments, Providers, Procedures, Diagnoses, Insurance, Cities, States
 
-Identifies top and underperforming providers by city and state. Northern Ireland and Wales are the high performing providers While Scotland and England are underperforming. 
+Relationships are established through keys such as:
 
-Highlights key patterns and changes in performance over time. Most patients are outpatients contributing to the revenue for the diagnosis Hypertension, appendicits, asthma, fracture and Migraine. The Emergency and in-patients are comparatively less between (20 to 29%) contributing to the revenue. This indicates most patients are treated well within time and with appropriate measures. 
+patients[patient_id] → visits[patient_id]
 
-Tracks revenue growth, seasonal fluctuations, and provider productivity trends. Cardiology is the most productive department followed by Orthopedics, General surgery, Neurology, Pediatrics. Most of the patients have gone through the procedure of X-rays followed by CT Scan, MRI Scan, Ultrasound and Blood test. 
+departments[department_id] → visits[department_id]
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Additional Insights -
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--Patients residing in Edinburgh followed by Brimingham and Sheffied have the highest insurance coverage indicating higher payment in cash for other cities. 
--Highest services are provided to Wales followed by Northern land and then England by state. Brimingham reporting 996 services received followed by Bristol.
-- Highest length of stay for patients is for Northern Ireland followed by Wales for Asthma followed by hypertension in both states.
+insurance[insurance_id] → visits[insurance_id]
 
-🛠️ Tools & Technologies
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Dashboard Pages
+-----------
 
-Power BI – for building interactive dashboards and visualizations
+Page	Focus	Key Insights
+1. Financial Overview	Overall revenue and cost distribution	£3M total billing, average billing £675/patient, procedure and department-level trends
+2. Insurance Provider Overview	Comparison of insurance vs. cash payments	Aviva, AXA, Allianz lead in claim coverage; Hypertension & Appendicitis most covered diagnoses
+3. Demographic Overview	Geographic patterns in cost and service	Edinburgh and Birmingham highest billing; Wales highest stay and cost
+4. Department Overview	Departmental cost & performance analysis	Cardiology, Orthopedics, and General Surgery dominate revenue share
+5. Diagnosis Overview	Disease-level financial & operational impact	Hypertension and Appendicitis show highest treatment and medication costs
 
-Excel / CSV Dataset – source of raw healthcare data
+## Key Metrics & DAX Measures
+-----------
+Measure	Description
+Total Revenue = SUM(visits[billing_amount])	Total hospital billing
+Total Treatment Cost = SUM(visits[treatment_cost])	Total treatment expenditure
+Total Insurance Coverage = SUM(insurance[coverage_amount])	Total insured amount
+Out-of-Pocket = SUM(visits[cash_payment])	Patient direct payments
+Average Billing = DIVIDE([Total Revenue], COUNT(patients[patient_id]))	Avg billing per patient
+Length of Stay = DATEDIFF(visits[admission_date], visits[discharge_date], DAY)	Stay duration
+Gross Margin % = DIVIDE([Total Revenue]-[Total Treatment Cost],[Total Revenue])	Profitability metric
 
-DAX – used for calculated measures and KPIs
 
-📌 Key Features
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Interactive Visuals – drill-throughs, slicers, and filters for dynamic exploration
+## Analytical Insights
 
-User-Friendly Design – intuitive navigation for stakeholders
+Top 3 Revenue Departments: Cardiology (£846K), Orthopedics (£813K), General Surgery (£783K)
 
-Comprehensive Analysis – covers finance, provider efficiency, and trends
+Top Insurance Providers: Aviva (£751K), AXA (£743K), Allianz (£731K)
 
-Actionable Insights – identifies areas for improvement and growth
+Most Common Diagnoses: Hypertension, Appendicitis, Asthma
 
-🚀 How to Use
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Average Stay Duration: 4.87 days, with maximum 9 days in complex cases
 
-Open the Power BI file: Healthcare Provider Dashboard.pbix
+High-Cost States: Wales and Northern Ireland show above-average treatment costs
 
-Use filters and slicers to interact with the data and uncover deeper insights.
+## Business Value
 
-📈 Insights Delivered
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Enables cost-to-care ratio analysis for each department.
 
-Clear overview of the financial performance of the healthcare center.
+Identifies high-performing insurance providers and patient demographics.
 
-Identification of high-performing vs. low-performing providers.
+Assists in budget forecasting and revenue optimization.
 
-Trend analysis showing growth opportunities and problem areas.
+Serves as a base for predictive modeling (e.g., future revenue or LOS forecasts).
 
-Strategic recommendations supported by visual data storytelling.
+Builds transparency between financial, clinical, and administrative units.
 
-🔎 Key Insights
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Tools & Techniques
 
-Revenue Growth: Overall revenue showed a steady upward trend, with noticeable seasonal peaks in Q2 and Q4.
+Power BI – Data modeling, DAX, and visualization
 
-Cost Patterns: Operational costs rose in parallel with revenue, suggesting potential inefficiencies in resource allocation.
+Power Query – ETL and data transformation
 
-Provider Performance:
+Excel / CSV Files – Base datasets
 
-A few providers contributed disproportionately to total revenue, while some underperformed despite similar patient volumes.
+Map, KPI, Waterfall, and Matrix visuals – Dynamic visuals for clarity
 
-High-efficiency providers tended to handle a larger patient load with shorter consultation times.
+Slicers (City, State, Department, Date) – Fully synced for cross-page filtering
 
-Patient Trends: An increase in repeat visits indicated growing patient retention, a positive sign for long-term sustainability.
+## Project Highlights
 
-✅ Recommendations
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+✅ End-to-end ETL + modeling + analysis
+✅ Professionally structured KPI layer
+✅ Interactive maps and department comparisons
+✅ Insight-driven storytelling design
+✅ Real-world healthcare context (finance, insurance, operations)
 
-Optimize Provider Allocation – Reassign patient loads to balance underutilized providers and reduce burnout among top performers.
 
-Cost Control Measures – Investigate rising operational costs during high-revenue quarters to identify waste or inefficiencies.
+## Author
 
-Incentive Programs – Introduce performance-based incentives for providers to encourage higher efficiency and quality of care.
+Nikita Ravindra Albela
+Data Analyst | Power BI Developer | Business Intelligence Enthusiast
+nikitaalbela31@gmail.com
+GitHub Profile 
 
-Focus on Retention – Leverage patient retention trends by offering wellness programs and follow-up care packages.
 
-Strategic Forecasting – Use seasonal revenue patterns to plan staffing, resource allocation, and marketing campaigns.
+ Suggested Repository Structure
+ Healthcare-Provider-Dashboard
+ Healthcare Provider Dashboard.pbix
+ Data/
+ patients.csv
+ visits.csv
+ diagnoses.csv
+ departments.csv
+ insurance.csv
+ procedures.csv
+ Screenshots/
+ README.md
