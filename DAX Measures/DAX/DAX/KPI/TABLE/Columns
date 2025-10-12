@@ -1,0 +1,98 @@
+## Key Metrics and DAX Measures
+
+- Total Billing Amount = [Total Medication cost] + [Total Treatment Cost] + [Total Room Charges]
+
+- Total Medication cost = SUM(visits[Medication Cost]) 
+
+- Total Treatment Cost = SUM(visits[Treatment Cost])
+
+- Total Room Charges = 
+SUMX(
+    visits, visits[Room Charges(daily rate)]*visits[Length of Stay])
+
+- Total Patients = DISTINCTCOUNT(visits[Patient ID])
+
+- Total Payment in cash = [Total Billing Amount] - [Total Insurance Coverage]
+
+- Total Length of Stay = SUM(visits[Length of Stay])
+
+- Total Insurance Coverage = SUM(visits[Insurance Coverage])
+
+- Top Diagnoses = 
+CONCATENATEX(
+    TOPN(3, VALUES(diagnoses[Diagnosis]), [Total Billing Amount], DESC),
+    diagnoses[Diagnosis],
+    ", "
+)
+
+- Select Department = SELECTEDVALUE(departments[Department])
+
+- Blank Measure = 0
+
+-Max Length of Stay = 
+MAXX(
+    visits,
+    DATEDIFF(visits[Admitted Date], visits[Discharge Date], DAY)
+)
+
+- % Procedure = 
+Divide(
+    [Total Billing Amount],
+Calculate([Total Billing Amount],
+ALL(procedures[Procedure])))
+
+- % Department = 
+DIVIDE(
+    [Total Billing Amount],
+CALCULATE(
+    [Total Billing Amount], ALL(departments[Department])))
+
+## Average Measures
+
+- Average Billing Amount Per Patient = 
+Divide([Total Billing Amount],
+[Total Patients])
+
+- Average Insurance Coverage = Average(visits[Insurance Coverage])
+
+-Average Length of Stay = 
+AVERAGEX(
+    visits,
+    DATEDIFF(visits[Admitted Date], visits[Discharge Date], DAY)
+)
+
+- Average Medication Cost = AVERAGE(visits[Medication Cost])
+
+- Average Out-of_Pocket Per Patient = 
+Divide([Total Payment in cash],
+[Total Patients])
+
+- Average Patient Satisfaction Score = AVERAGE(visits[Patient Satisfaction Score])
+
+- Average Room Charges = 
+Divide([Total Room Charges],[Total Patients])
+
+- Average Treatment Cost = AVERAGE(visits[Treatment Cost])
+
+## Calculated Columns 
+
+- Length of Stay = 
+DATEDIFF(
+    visits[Admitted Date],
+    [Discharge Date],DAY
+    )
+
+- Total Room Charges = visits[Room Charges(daily rate)] * visits[Length of Stay]
+
+- Date Table = 
+ADDCOLUMNS(
+CALENDARAUTO(),
+"Year", YEAR([Date]),
+"Month", FORMAT([Date],"mmm"),
+"Monthnum",MONTH([Date]),
+"Weekday", FORMAT([Date],"ddd"),
+"Weeknum", WEEKDAY([Date]),
+"Qtr", "Q-" & FORMAT([Date], "Q"),
+"WeekType", IF(WEEKDAY([Date]) = 1 || WEEKDAY([Date])=7,
+"Weekend", "Weekday"
+))
